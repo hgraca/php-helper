@@ -1,4 +1,4 @@
-# Helper library 
+# Hgraca\Helper
 [![Build Status](https://travis-ci.org/hgraca/php-helper.svg?branch=master)](https://travis-ci.org/hgraca/php-helper)
 [![codecov](https://codecov.io/gh/hgraca/php-helper/branch/master/graph/badge.svg)](https://codecov.io/gh/hgraca/php-helper)
 
@@ -14,4 +14,5 @@ composer require hgraca/helper
 
 ## Todo
 
+- Add `shields.io` badges
 - Explore performance of [using `Closure::bind()` instead of reflection to manipulate inaccessible properties in objects](https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/)
