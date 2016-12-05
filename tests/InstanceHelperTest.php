@@ -25,6 +25,19 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
         $cEntity = InstanceHelper::createInstance(CEntity::class);
 
         $expectedArray = [
+            'propertyA' => 'a',
+            'propertyB' => 1,
+            'propertyC' => [1, 2, 3],
+        ];
+
+        self::assertEquals($expectedArray, EntityHelper::toArray($cEntity));
+    }
+
+    public function testCreateInstanceWithoutConstructor()
+    {
+        $cEntity = InstanceHelper::createInstanceWithoutConstructor(CEntity::class);
+
+        $expectedArray = [
             'propertyA' => null,
             'propertyB' => null,
             'propertyC' => [],

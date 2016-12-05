@@ -17,11 +17,19 @@ final class InstanceHelper extends ReflectionHelperAbstract
     }
 
     /**
-     * @param string $fqcn
-     *
      * @return mixed
      */
-    public static function createInstance(string $fqcn)
+    public static function createInstance(string $fqcn, array $constructorArguments = [])
+    {
+        $reflectionClass = self::getReflectionClass($fqcn);
+
+        return $reflectionClass->newInstanceArgs($constructorArguments);
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function createInstanceWithoutConstructor(string $fqcn)
     {
         $reflectionClass = self::getReflectionClass($fqcn);
 

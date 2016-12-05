@@ -15,4 +15,5 @@ composer require hgraca/helper
 ## Todo
 
 - Add `shields.io` badges
+- Add a CS fixer
 - Explore performance of [using `Closure::bind()` instead of reflection to manipulate inaccessible properties in objects](https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/)

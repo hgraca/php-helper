@@ -15,7 +15,7 @@ final class EntityHelper extends HelperAbstract
     public static function fromArray($entity, array $array)
     {
         if (is_string($entity)) {
-            $entity = InstanceHelper::createInstance($entity);
+            $entity = InstanceHelper::createInstanceWithoutConstructor($entity);
         }
 
         $reflectionPropertyList = InstanceHelper::getReflectionProperties($entity);
