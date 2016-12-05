@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper\Test;
 
 use Hgraca\Helper\ClassHelper;
@@ -20,8 +21,7 @@ final class ClassHelperTest extends PHPUnit_Framework_TestCase
                 AEntity::CONSTANT_A => AEntity::CONSTANT_A,
                 AEntity::CONSTANT_B => AEntity::CONSTANT_B,
             ],
-            ClassHelper::findConstants(AEntity::class))
-        ;
+            ClassHelper::findConstants(AEntity::class));
     }
 
     /**
@@ -80,8 +80,8 @@ final class ClassHelperTest extends PHPUnit_Framework_TestCase
                 [
                     ['name' => 'parameterA'],
                     ['name' => 'parameterB'],
-                    ['name' => 'parameterC', 'class' => BEntity::class]
-                ]
+                    ['name' => 'parameterC', 'class' => BEntity::class],
+                ],
             ],
             ['methodB', []],
         ];
@@ -99,7 +99,7 @@ final class ClassHelperTest extends PHPUnit_Framework_TestCase
 
     public function testSetReflectionPropertiesVisible()
     {
-        $reflectionPropertyList   = ClassHelper::getReflectionProperties(AEntity::class);
+        $reflectionPropertyList = ClassHelper::getReflectionProperties(AEntity::class);
         ClassHelper::setReflectionPropertiesAccessible($reflectionPropertyList);
 
         $entity = new AEntity();

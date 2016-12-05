@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper;
 
 use Hgraca\Helper\Concept\ReflectionHelperAbstract;
@@ -43,13 +44,13 @@ final class ClassHelper extends ReflectionHelperAbstract
         array $excludedNames = [],
         array $excludedVisibility = []
     ) {
-        $defaultVisibility  = ['public' => true, 'protected' => true, 'private' => true, 'static' => true];
+        $defaultVisibility = ['public' => true, 'protected' => true, 'private' => true, 'static' => true];
         $excludedVisibility = array_merge(
             $defaultVisibility,
             self::setGivenExcludedVisivilitiesToKeysWithValueFalse($excludedVisibility)
         );
 
-        $reflectionClass           = self::getReflectionClass($classFqcn);
+        $reflectionClass = self::getReflectionClass($classFqcn);
         $reflectionPropertiesArray = $reflectionClass->getProperties();
 
         return self::filterProperties($excludedNames, $excludedVisibility, $reflectionPropertiesArray);
@@ -72,8 +73,7 @@ final class ClassHelper extends ReflectionHelperAbstract
     {
         try {
             $reflectionMethod = new ReflectionMethod($classFqcn, $method);
-        }
-        catch (ReflectionException $e) {
+        } catch (ReflectionException $e) {
             return [];
         }
 
@@ -118,8 +118,7 @@ final class ClassHelper extends ReflectionHelperAbstract
     {
         try {
             return $class->getProperty($propertyName);
-        }
-        catch (ReflectionException $e) {
+        } catch (ReflectionException $e) {
             $parentClass = $class->getParentClass();
             if ($parentClass === false) {
                 throw $e;
@@ -133,13 +132,12 @@ final class ClassHelper extends ReflectionHelperAbstract
         array $excludedNames,
         array $excludedVisibility,
         ReflectionProperty $reflectionProperty
-    ): bool
-    {
+    ): bool {
         return in_array($reflectionProperty->getName(), $excludedNames) ||
-        (! $excludedVisibility['public'] && $reflectionProperty->isPublic()) ||
-        (! $excludedVisibility['protected'] && $reflectionProperty->isProtected()) ||
-        (! $excludedVisibility['private'] && $reflectionProperty->isPrivate()) ||
-        (! $excludedVisibility['static'] && $reflectionProperty->isStatic());
+        (!$excludedVisibility['public'] && $reflectionProperty->isPublic()) ||
+        (!$excludedVisibility['protected'] && $reflectionProperty->isProtected()) ||
+        (!$excludedVisibility['private'] && $reflectionProperty->isPrivate()) ||
+        (!$excludedVisibility['static'] && $reflectionProperty->isStatic());
     }
 
     /**
@@ -158,7 +156,6 @@ final class ClassHelper extends ReflectionHelperAbstract
 
         /** @var ReflectionProperty $reflectionProperty */
         foreach ($reflectionPropertiesArray as $reflectionProperty) {
-
             if (self::excludeProperty($excludedNames, $excludedVisibility, $reflectionProperty)) {
                 continue;
             }

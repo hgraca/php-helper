@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper;
 
 use Hgraca\Helper\Concept\ReflectionHelperAbstract;

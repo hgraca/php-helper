@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper;
 
 use Hgraca\Helper\Concept\HelperAbstract;
@@ -60,7 +61,7 @@ final class StringHelper extends HelperAbstract
 
         $replace = '$1' . $delimiter . '$2';
 
-        return (ctype_lower($string) ? $string : strtolower(preg_replace('/(.)([A-Z])/', $replace, $string)));
+        return ctype_lower($string) ? $string : strtolower(preg_replace('/(.)([A-Z])/', $replace, $string));
     }
 
     public static function toStudly(string $string, array $wordSeparators = ['-', '_', ' ']): string
@@ -72,7 +73,7 @@ final class StringHelper extends HelperAbstract
     {
         json_decode($string);
 
-        return (json_last_error() == JSON_ERROR_NONE);
+        return json_last_error() == JSON_ERROR_NONE;
     }
 
     public static function remove(string $search, string $haystack): string
@@ -134,9 +135,9 @@ final class StringHelper extends HelperAbstract
         }
 
         $bad_brackets = ['(', ')', '{', '}'];
-        $string       = str_replace($bad_brackets, ' ', $string);
-        $string       = preg_replace('/\s+/', ' ', $string);
-        $string       = trim($string, ' .-');
+        $string = str_replace($bad_brackets, ' ', $string);
+        $string = preg_replace('/\s+/', ' ', $string);
+        $string = trim($string, ' .-');
 
         if ($resultWithDashes === true) {
             $string = str_replace(' ', '-', $string);

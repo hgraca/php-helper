@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper\Concept;
 
 abstract class HelperAbstract

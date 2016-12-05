@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper\Test;
 
 use Hgraca\Helper\EntityHelper;
@@ -47,7 +48,7 @@ final class EntityHelperTest extends PHPUnit_Framework_TestCase
                     'propertyC' => ['A', 1],
                     'propertyD' => $bEntity,
                 ],
-                $aEntity
+                $aEntity,
             ],
             'partial filling' => [
                 AEntity::class,
@@ -55,7 +56,7 @@ final class EntityHelperTest extends PHPUnit_Framework_TestCase
                     'propertyA' => 'A',
                     'propertyB' => 1,
                 ],
-                $cEntity
+                $cEntity,
             ],
             'partial filling replacing some data' => [
                 $cEntity,
@@ -63,7 +64,7 @@ final class EntityHelperTest extends PHPUnit_Framework_TestCase
                     'propertyB' => 2,
                     'propertyC' => ['C', 3],
                 ],
-                $dEntity
+                $dEntity,
             ],
         ];
     }
@@ -113,8 +114,8 @@ final class EntityHelperTest extends PHPUnit_Framework_TestCase
                         'mapper' => [
                             'propertyA' => ['name' => 'A_pD_A'],
                             'propertyB' => ['name' => 'A_pD_B'],
-                            'propertyC' => ['name' => 'A_pD_C', 'mapper' => [0 => 1, 1 => 2]]
-                        ]
+                            'propertyC' => ['name' => 'A_pD_C', 'mapper' => [0 => 1, 1 => 2]],
+                        ],
                     ],
                 ],
                 [

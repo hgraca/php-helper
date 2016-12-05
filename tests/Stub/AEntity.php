@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper\Test\Stub;
 
 class AEntity
@@ -83,5 +84,4 @@ class AEntity
     {
         self::$propertyD = $propertyD;
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper;
 
 use Hgraca\Helper\Concept\HelperAbstract;
@@ -34,10 +35,10 @@ final class ArrayHelper extends HelperAbstract
             return $data;
         }
 
-        $steps  = explode('.', $path);
+        $steps = explode('.', $path);
         $actual = $data;
         foreach ($steps as $step) {
-            if (! array_key_exists($step, $actual)) {
+            if (!array_key_exists($step, $actual)) {
                 return null;
             }
 

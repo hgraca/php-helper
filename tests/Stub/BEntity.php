@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper\Test\Stub;
 
 class BEntity

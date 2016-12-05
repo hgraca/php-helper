@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper;
 
 use Hgraca\Helper\Concept\HelperAbstract;
@@ -33,7 +34,7 @@ final class EntityHelper extends HelperAbstract
     }
 
     /**
-     * @param mixed|Object|array $data An object, array or native value
+     * @param mixed|object|array $data An object, array or native value
      * @param array              $propertyNameMapper
      *
      * @return array
@@ -82,7 +83,7 @@ final class EntityHelper extends HelperAbstract
 
     /**
      * @param string             $propertyName
-     * @param mixed|Object|array $propertyValue
+     * @param mixed|object|array $propertyValue
      * @param array              $propertyNameMapper
      * @param array              $resultArray
      *

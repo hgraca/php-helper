@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper\Test;
 
 use Hgraca\Helper\ArrayHelper;
@@ -8,7 +9,7 @@ final class ArrayHelperTest extends PHPUnit_Framework_TestCase
 {
     /** @var array */
     private static $testArray = [
-        'base'     => ['path' => ['with' => 'data']],
+        'base' => ['path' => ['with' => 'data']],
         'multiple' => [
             'path' => [
                 'with' => [
@@ -23,11 +24,11 @@ final class ArrayHelperTest extends PHPUnit_Framework_TestCase
     public function testRenameKeys()
     {
         $expected = [
-            'base'    => 'one',
+            'base' => 'one',
             'another' => 'two',
         ];
         $notExpected = [
-            'not_found' => 'tree'
+            'not_found' => 'tree',
         ];
 
         $result = ArrayHelper::renameKeys(

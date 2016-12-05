@@ -1,4 +1,5 @@
 <?php
+
 namespace Hgraca\Helper\Test;
 
 use Hgraca\Helper\EntityHelper;
@@ -9,11 +10,10 @@ use PHPUnit_Framework_TestCase;
 
 final class InstanceHelperTest extends PHPUnit_Framework_TestCase
 {
-
     public function testGetReflectionProperties()
     {
         $expectedPropertyNameList = ['propertyA', 'propertyB', 'propertyC', 'propertyD'];
-        $reflectionPropertyList   = InstanceHelper::getReflectionProperties(new AEntity());
+        $reflectionPropertyList = InstanceHelper::getReflectionProperties(new AEntity());
 
         foreach ($reflectionPropertyList as $key => $reflectionProperty) {
             self::assertEquals($expectedPropertyNameList[$key], $reflectionProperty->getName());
@@ -49,7 +49,7 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     public function testSetProtectedProperty()
     {
         $propertyValue = 'AAA';
-        $cEntity       = new CEntity($propertyValue);
+        $cEntity = new CEntity($propertyValue);
         self::assertEquals($propertyValue, $cEntity->getPropertyA());
 
         $propertyValue = 'BBB';
@@ -60,7 +60,7 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     public function testSetProtectedProperty_DefinedInParentClass()
     {
         $propertyValue = 'ZZZ';
-        $cEntity       = new CEntity();
+        $cEntity = new CEntity();
         $cEntity->setPropertyZ($propertyValue);
         self::assertEquals($propertyValue, $cEntity->getPropertyZ());
 
@@ -79,7 +79,6 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
         InstanceHelper::setProtectedProperty($cEntity, 'fooBar', 'non existent');
     }
 
-
     public function testGetProtectedProperty()
     {
         $cEntity = new CEntity();
@@ -91,7 +90,7 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     public function testGetProtectedProperty_DefinedInParentClass()
     {
         $propertyValue = 'ZZZ';
-        $cEntity       = new CEntity();
+        $cEntity = new CEntity();
         $cEntity->setPropertyZ($propertyValue);
 
         $propertyZ = InstanceHelper::getProtectedProperty($cEntity, 'propertyZ');

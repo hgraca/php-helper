@@ -1,15 +1,15 @@
 <?php
+
 namespace Hgraca\Helper\Test;
 
 use Hgraca\Helper\JsonHelper;
-use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 
 final class JsonHelperTest extends PHPUnit_Framework_TestCase
 {
     /** @var array */
     private static $testArray = [
-        'base'     => ['path' => ['with' => 'data']],
+        'base' => ['path' => ['with' => 'data']],
         'multiple' => [
             'path' => [
                 'with' => [
@@ -27,7 +27,7 @@ final class JsonHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testToArray_WithInvalidString()
     {
