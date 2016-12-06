@@ -22,3 +22,6 @@ cs-fix:
 
 test:
 	bin/phpunit
+
+test-debug:
+	php -dzend_extension=xdebug.so bin/phpunit
