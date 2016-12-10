@@ -5,6 +5,7 @@ namespace Hgraca\Helper;
 use Closure;
 use Hgraca\Helper\Concept\ReflectionHelperAbstract;
 use InvalidArgumentException;
+use ReflectionException;
 use ReflectionFunction;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -63,22 +64,16 @@ final class InstanceHelper extends ReflectionHelperAbstract
     /**
      * @param callable $input Can be a callable array (method defaults to '__construct'), callable object or Closure
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return array [index => [name, class]]
      */
     public static function getParameters($input): array
     {
-        if (is_array($input)) {
-            $dependentClass  = is_string($input[0]) ? $input[0] : get_class($input[0]);
-            $dependentMethod = $input[1] ?? '__construct';
-            $reflectionMethod = new ReflectionMethod($dependentClass, $dependentMethod);
-        } elseif ($input instanceof Closure) {
-            $reflectionMethod = new ReflectionFunction($input);
-        } elseif (is_callable($input)) {
-            $reflectionMethod = new ReflectionMethod(get_class($input), '__invoke');
-        } else {
-            throw new InvalidArgumentException('$input needs to be a callable');
+        try {
+            $reflectionMethod = self::getCallableReflectionMethod($input);
+        } catch (ReflectionException $e) {
+            return [];
         }
 
         foreach ($reflectionMethod->getParameters() as $index => $param) {
@@ -89,5 +84,28 @@ final class InstanceHelper extends ReflectionHelperAbstract
         }
 
         return $reflectionParameters ?? [];
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     *
+     * @return ReflectionFunction|ReflectionMethod
+     */
+    private static function getCallableReflectionMethod($input)
+    {
+        if (is_array($input)) {
+            $dependentClass  = is_string($input[0]) ? $input[0] : get_class($input[0]);
+            $dependentMethod = $input[1] ?? '__construct';
+
+            return new ReflectionMethod($dependentClass, $dependentMethod);
+        } elseif ($input instanceof Closure) {
+
+            return new ReflectionFunction($input);
+        } elseif (is_callable($input)) {
+
+            return new ReflectionMethod(get_class($input), '__invoke');
+        } else {
+            throw new InvalidArgumentException('$input needs to be a callable');
+        }
     }
 }
