@@ -5,7 +5,9 @@ namespace Hgraca\Helper\Test;
 use Hgraca\Helper\EntityHelper;
 use Hgraca\Helper\InstanceHelper;
 use Hgraca\Helper\Test\Stub\AEntity;
+use Hgraca\Helper\Test\Stub\BEntity;
 use Hgraca\Helper\Test\Stub\CEntity;
+use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 
 final class InstanceHelperTest extends PHPUnit_Framework_TestCase
@@ -13,7 +15,7 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     public function testGetReflectionProperties()
     {
         $expectedPropertyNameList = ['propertyA', 'propertyB', 'propertyC', 'propertyD'];
-        $reflectionPropertyList = InstanceHelper::getReflectionProperties(new AEntity());
+        $reflectionPropertyList   = InstanceHelper::getReflectionProperties(new AEntity());
 
         foreach ($reflectionPropertyList as $key => $reflectionProperty) {
             self::assertEquals($expectedPropertyNameList[$key], $reflectionProperty->getName());
@@ -49,7 +51,7 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     public function testSetProtectedProperty()
     {
         $propertyValue = 'AAA';
-        $cEntity = new CEntity($propertyValue);
+        $cEntity       = new CEntity($propertyValue);
         self::assertEquals($propertyValue, $cEntity->getPropertyA());
 
         $propertyValue = 'BBB';
@@ -60,7 +62,7 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     public function testSetProtectedProperty_DefinedInParentClass()
     {
         $propertyValue = 'ZZZ';
-        $cEntity = new CEntity();
+        $cEntity       = new CEntity();
         $cEntity->setPropertyZ($propertyValue);
         self::assertEquals($propertyValue, $cEntity->getPropertyZ());
 
@@ -90,7 +92,7 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     public function testGetProtectedProperty_DefinedInParentClass()
     {
         $propertyValue = 'ZZZ';
-        $cEntity = new CEntity();
+        $cEntity       = new CEntity();
         $cEntity->setPropertyZ($propertyValue);
 
         $propertyZ = InstanceHelper::getProtectedProperty($cEntity, 'propertyZ');
@@ -105,5 +107,70 @@ final class InstanceHelperTest extends PHPUnit_Framework_TestCase
     {
         $cEntity = new CEntity();
         InstanceHelper::getProtectedProperty($cEntity, 'fooBar');
+    }
+
+    /**
+     * @test
+     *
+     * @small
+     */
+    public function getParameters_WorksForArray()
+    {
+        self::assertEquals(
+            [
+                ['name' => 'parameterA'],
+                ['name' => 'parameterB'],
+                ['name' => 'parameterC', 'class' => BEntity::class],
+            ],
+            InstanceHelper::getParameters([AEntity::class, 'methodA'])
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @small
+     */
+    public function getParameters_WorksForClosure()
+    {
+        $double = function (int $value = 3) {
+            return $value * 2;
+        };
+
+        self::assertEquals(
+            [
+                ['name' => 'value'],
+            ],
+            InstanceHelper::getParameters($double)
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @small
+     */
+    public function getParameters_WorksForInvokableObject()
+    {
+        self::assertEquals(
+            [
+                ['name' => 'parameterA'],
+                ['name' => 'parameterB'],
+                ['name' => 'parameterC', 'class' => BEntity::class],
+            ],
+            InstanceHelper::getParameters(new BEntity())
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @small
+     *
+     * @expectedException InvalidArgumentException
+     */
+    public function getParameters_ThrowsExceptionIfNotCallable()
+    {
+        InstanceHelper::getParameters('something');
     }
 }

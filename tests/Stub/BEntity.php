@@ -48,4 +48,8 @@ class BEntity
     {
         $this->propertyC = $propertyC;
     }
+
+    public function __invoke(string $parameterA = 'A', int $parameterB = 0, BEntity $parameterC = null)
+    {
+    }
 }
