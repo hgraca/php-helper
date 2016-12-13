@@ -47,4 +47,10 @@ final class ArrayHelper extends HelperAbstract
 
         return $actual;
     }
+
+    public static function isTwoDimensional(array $array): bool
+    {
+        $array = array_values($array);
+        return isset($array[0]) && is_array($array[0]);
+    }
 }

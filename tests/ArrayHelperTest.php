@@ -73,4 +73,26 @@ final class ArrayHelperTest extends PHPUnit_Framework_TestCase
     {
         self::assertSame(self::$testArray, ArrayHelper::extract(self::$testArray, ''));
     }
+
+    /**
+     * @test
+     *
+     * @small
+     *
+     * @dataProvider dataProvider_isTwoDimensional
+     */
+    public function isTwoDimensional(array $array, bool $expectedResult)
+    {
+        self::assertEquals($expectedResult, ArrayHelper::isTwoDimensional($array));
+    }
+
+    public function dataProvider_isTwoDimensional(): array
+    {
+        return [
+            [[[], []], true],
+            [[[1, 2, 3], [1, 2, 3]], true],
+            [[], false],
+            [[1, 2, 3], false],
+        ];
+    }
 }
