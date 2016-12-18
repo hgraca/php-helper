@@ -53,4 +53,12 @@ final class ArrayHelper extends HelperAbstract
         $array = array_values($array);
         return isset($array[0]) && is_array($array[0]);
     }
+
+    /**
+     * Same as array_map, but recursive
+     */
+    public static function mapRecursive(callable $func, array $array)
+    {
+        return filter_var($array, \FILTER_CALLBACK, ['options' => $func]);
+    }
 }

@@ -61,11 +61,11 @@ final class ArrayHelperTest extends PHPUnit_Framework_TestCase
     public function testExtract_WithIncompletePath()
     {
         self::assertSame(
-            ArrayHelper::extract(self::$testArray, 'multiple.path.with'),
             [
                 'multiple',
                 'data',
-            ]
+            ],
+            ArrayHelper::extract(self::$testArray, 'multiple.path.with')
         );
     }
 
@@ -94,5 +94,45 @@ final class ArrayHelperTest extends PHPUnit_Framework_TestCase
             [[], false],
             [[1, 2, 3], false],
         ];
+    }
+
+    /**
+     * @test
+     *
+     * @small
+     */
+    public function mapRecursive_WithSingleDimensionArray()
+    {
+        $testArray = [1, 2, 3];
+
+        self::assertSame(
+            [2, 3, 4],
+            ArrayHelper::mapRecursive(
+                function ($value) {
+                    return $value + 1;
+                },
+                $testArray
+            )
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @small
+     */
+    public function mapRecursive_WithMultiDimensionArray()
+    {
+        $testArray = [1, 2, [3, 4, 5]];
+
+        self::assertSame(
+            [2, 3, [4, 5, 6]],
+            ArrayHelper::mapRecursive(
+                function ($value) {
+                    return $value + 1;
+                },
+                $testArray
+            )
+        );
     }
 }
